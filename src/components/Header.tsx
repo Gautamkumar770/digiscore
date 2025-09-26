@@ -18,7 +18,7 @@ const Header = () => {
       subItems: [
         { title: "Check Penalty History", href: "/penalty-history" },
         { title: "Check DIGIScore Status", href: "/digiscore-status" },
-        { title: "DL Status", href: "/dl-status" },
+        { title: "Check DL Status", href: "/dl-status" },
       ]
     },
     { title: "DIGIScore Core Benefits", href: "/benefits" },
@@ -31,25 +31,25 @@ const Header = () => {
   return (
     <header className="bg-gradient-official shadow-government border-b">
       {/* Top Banner */}
-      <div className="bg-gradient-saffron py-2">
+      <div className="bg-white py-4 border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <img 
                 src={indiaEmblem} 
                 alt="Government of India Emblem" 
-                className="h-12 w-12"
+                className="h-14 w-14"
               />
               <div>
-                <h1 className="text-xl font-bold text-white">
-                  DIGIscore - Digital Demerit Points System
+                <h1 className="text-3xl font-extrabold text-black leading-tight">
+                  DIGIScore - Digital Demerit Points System
                 </h1>
-                <p className="text-sm text-secondary-foreground opacity-90">
+                <p className="text-lg text-black font-medium mt-1">
                   Government of India
                 </p>
               </div>
             </div>
-            <div className="text-right text-white text-sm">
+            <div className="text-right text-black text-base font-semibold">
               <p>भारत सरकार</p>
               <p>Government of India</p>
             </div>
