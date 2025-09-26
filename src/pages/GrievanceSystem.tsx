@@ -8,8 +8,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const GrievanceSystem = () => {
+  // Add compact styles
+  const inputStyles = "h-9 text-sm";
+  const labelStyles = "text-sm";
   const [captcha, setCaptcha] = useState("8K2P9");
   const [captchaInput, setCaptchaInput] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -109,37 +113,32 @@ const GrievanceSystem = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
-      
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-primary mb-2">
+      <main className="container mx-auto px-4 py-5 flex-grow">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-5">
+            <h1 className="text-2xl font-bold text-primary mb-1.5">
               Grievance System
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-sm">
               Submit your complaint regarding Demerit points issued by Traffic Police or other state authorities.
             </p>
           </div>
 
-          <Card className="bg-card shadow-government">
-            <CardHeader className="bg-gradient-official">
-              <CardTitle className="text-primary-foreground text-center">
-                Submit New Grievance
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Name *</Label>
+          <Card className="bg-card shadow-md">
+            <CardContent className="p-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="name" className="text-sm">Name *</Label>
                     <Input
                       id="name"
                       value={formData.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
                       placeholder="Full name of complainant"
                       required
+                      className="h-9 text-sm"
                     />
                   </div>
 
@@ -238,85 +237,88 @@ const GrievanceSystem = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="description">Describe Your Issue *</Label>
+                <div className="space-y-1.5">
+                  <Label htmlFor="description" className="text-sm">Describe Your Issue *</Label>
                   <Textarea
                     id="description"
                     value={formData.description}
                     onChange={(e) => handleInputChange('description', e.target.value)}
                     placeholder="Please describe your issue in detail (Max 500 characters)"
                     maxLength={500}
-                    rows={4}
+                    rows={3}
+                    className="text-sm resize-none"
                     required
                   />
-                  <div className="text-right text-sm text-muted-foreground">
+                  <div className="text-right text-xs text-muted-foreground">
                     {formData.description.length}/500 characters
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="document">Upload Supporting Document</Label>
-                  <div className="flex items-center space-x-2">
-                    <Input
-                      id="document"
-                      type="file"
-                      onChange={handleFileChange}
-                      accept=".jpg,.jpeg,.png,.pdf"
-                      className="hidden"
-                    />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => document.getElementById('document')?.click()}
-                      className="flex items-center space-x-2"
-                    >
-                      <Upload className="h-4 w-4" />
-                      <span>Choose File</span>
-                    </Button>
-                    {file && (
-                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                        <FileText className="h-4 w-4" />
-                        <span>{file.name}</span>
-                      </div>
-                    )}
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Accept: JPG, JPEG, PNG, PDF (Max 5MB)
-                  </p>
-                </div>
-
-                {/* CAPTCHA */}
-                <div className="space-y-2">
-                  <Label htmlFor="captcha">CAPTCHA *</Label>
-                  <div className="flex items-center space-x-2">
-                    <div className="bg-muted p-3 rounded border border-dashed border-border font-mono text-lg font-bold tracking-wider">
-                      {captcha}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="document">Upload Supporting Document</Label>
+                    <div className="flex items-center space-x-2">
+                      <Input
+                        id="document"
+                        type="file"
+                        onChange={handleFileChange}
+                        accept=".jpg,.jpeg,.png,.pdf"
+                        className="hidden"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => document.getElementById('document')?.click()}
+                        className="flex items-center space-x-2"
+                      >
+                        <Upload className="h-4 w-4" />
+                        <span>Choose File</span>
+                      </Button>
+                      {file && (
+                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                          <FileText className="h-4 w-4" />
+                          <span>{file.name}</span>
+                        </div>
+                      )}
                     </div>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="icon"
-                      onClick={generateCaptcha}
-                      className="h-12 w-12"
-                    >
-                      <RefreshCw className="h-4 w-4" />
-                    </Button>
+                    <p className="text-xs text-muted-foreground">
+                      Accept: JPG, JPEG, PNG, PDF (Max 5MB)
+                    </p>
                   </div>
-                  <Input
-                    id="captcha"
-                    type="text"
-                    value={captchaInput}
-                    onChange={(e) => setCaptchaInput(e.target.value.toUpperCase())}
-                    placeholder="Enter CAPTCHA"
-                    maxLength={5}
-                    required
-                  />
+
+                  {/* CAPTCHA */}
+                  <div className="space-y-2">
+                    <Label htmlFor="captcha">CAPTCHA *</Label>
+                    <div className="flex items-center space-x-2">
+                      <div className="bg-muted p-3 rounded border border-dashed border-border font-mono text-lg font-bold tracking-wider">
+                        {captcha}
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={generateCaptcha}
+                        className="h-12 w-12"
+                      >
+                        <RefreshCw className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <Input
+                      id="captcha"
+                      type="text"
+                      value={captchaInput}
+                      onChange={(e) => setCaptchaInput(e.target.value.toUpperCase())}
+                      placeholder="Enter CAPTCHA"
+                      maxLength={5}
+                      required
+                    />
+                  </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
                   <Button
                     type="submit"
-                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2.5"
+                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-9 text-sm"
                   >
                     🔵 SUBMIT
                   </Button>
@@ -324,7 +326,7 @@ const GrievanceSystem = () => {
                     type="button"
                     variant="outline"
                     onClick={handleTicketStatus}
-                    className="flex-1 border-primary text-primary hover:bg-primary/10 font-semibold py-2.5"
+                    className="flex-1 border-primary text-primary hover:bg-primary/10 font-semibold h-9 text-sm"
                   >
                     🟦 TICKET STATUS
                   </Button>
@@ -334,6 +336,7 @@ const GrievanceSystem = () => {
           </Card>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

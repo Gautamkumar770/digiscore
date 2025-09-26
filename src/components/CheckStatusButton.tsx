@@ -1,15 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const CheckStatusButton = () => {
-  const { toast } = useToast();
+  const navigate = useNavigate();
   const handleClick = () => {
-    toast({
-      title: "Status Check",
-      description: "Redirecting to status check portal..."
-    });
-    // Add navigation logic here if needed
+    navigate("/status-details");
   };
   return (
   <div className="flex justify-start w-full">
@@ -19,7 +15,7 @@ const CheckStatusButton = () => {
         size="lg"
       >
         <Search className="h-5 w-5" />
-        Check Your Status
+        Check Your Points
       </Button>
     </div>
   );

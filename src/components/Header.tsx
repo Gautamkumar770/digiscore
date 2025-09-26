@@ -12,6 +12,7 @@ const Header = () => {
   const location = useLocation();
   
   const navItems = [
+    { title: "Home", href: "/" },
     {
       title: "Check Online Services",
       hasDropdown: true,
@@ -34,7 +35,7 @@ const Header = () => {
       <div className="bg-white py-4 border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+            <Link to="/" className="flex items-center space-x-4 hover:opacity-90">
               <img 
                 src={indiaEmblem} 
                 alt="Government of India Emblem" 
@@ -48,7 +49,7 @@ const Header = () => {
                   Government of India
                 </p>
               </div>
-            </div>
+            </Link>
             <div className="text-right text-black text-base font-semibold">
               <p>भारत सरकार</p>
               <p>Government of India</p>
