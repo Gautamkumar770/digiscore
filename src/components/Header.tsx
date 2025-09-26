@@ -26,7 +26,7 @@ const Header = () => {
     { title: "What is DIGIScore?", href: "/about" },
     { title: "Complaint", href: "/grievance" },
     { title: "DIGIScore Report", href: "/report" },
-    { title: "Dashboard", href: "/dashboard" },
+    { title: "Learn Rules", href: "/learn-rules" },
   ];
 
   return (
