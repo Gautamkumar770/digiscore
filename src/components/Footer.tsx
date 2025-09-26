@@ -56,8 +56,8 @@ const Footer = () => {
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/NIC_Logo.png" alt="logo" className="h-6 w-auto" />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-between mt-1">
-          <div className="flex-1 flex justify-start items-center text-gray-500">
+        <div className="flex flex-col items-center justify-center mt-1">
+          <div className="text-gray-500 text-center">
             Copyright © 2025 National Informatics Centre
           </div>
         </div>
