@@ -10,10 +10,10 @@ const Index = () => {
       
       <main className="flex-1">
         {/* Important Notifications Section */}
-        <section className="bg-gradient-patriot py-8">
+        <section className="bg-gradient-patriot py-4">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl font-semibold text-primary mb-4">
+            <div className="text-center mb-3">
+              <h2 className="text-lg font-semibold text-primary mb-2">
                 📢 Important Notifications
               </h2>
               <NotificationBanner />

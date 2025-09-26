@@ -23,24 +23,24 @@ const NotificationBanner = () => {
   const getAlertClass = (type: string) => {
     switch (type) {
       case 'success':
-        return 'border-success bg-success/10 text-success-foreground';
+        return 'border-success bg-success/10 text-primary';
       case 'warning':
-        return 'border-warning bg-warning/10 text-warning-foreground';
+        return 'border-warning bg-warning/10 text-primary';
       case 'info':
         return 'border-primary bg-primary/10 text-primary';
       default:
-        return 'border-border bg-muted';
+        return 'border-border bg-muted text-primary';
     }
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {notifications.map((notification, index) => {
         const Icon = notification.icon;
         return (
-          <Alert key={index} className={`${getAlertClass(notification.type)} shadow-sm`}>
-            <Icon className="h-4 w-4" />
-            <AlertDescription className="font-medium">
+          <Alert key={index} className={`${getAlertClass(notification.type)} shadow-sm py-2`}>
+            <Icon className="h-3 w-3" />
+            <AlertDescription className="text-sm">
               {notification.message}
             </AlertDescription>
           </Alert>
