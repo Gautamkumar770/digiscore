@@ -55,11 +55,6 @@ const LoginPanel = () => {
 
   return (
     <Card className="w-full max-w-md bg-card shadow-government">
-      <CardHeader className="bg-gradient-official text-center">
-        <CardTitle className="text-primary-foreground font-semibold">
-          Registered User Login
-        </CardTitle>
-      </CardHeader>
       <CardContent className="p-6 space-y-4">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
