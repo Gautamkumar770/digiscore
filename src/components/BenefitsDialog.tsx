@@ -14,7 +14,7 @@ interface BenefitsDialogProps {
 const BenefitsDialog: React.FC<BenefitsDialogProps> = ({ isOpen, onClose }) => {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg overflow-y-auto max-h-[80vh]">
+      <DialogContent className="max-w-3xl mx-auto bg-white p-4 sm:p-6 rounded-lg shadow-lg overflow-y-auto max-h-[90vh] w-[95vw] sm:w-auto">
         <DialogHeader className="mb-4">
           <DialogTitle className="text-2xl font-bold text-center text-gray-900">
             DIGIScore Benefits

@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import indiaEmblem from "@/assets/india-emblem.png";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +14,10 @@ import BenefitsDialog from "./BenefitsDialog";
 
 const Header = () => {
   const location = useLocation();
+  const isMobile = useIsMobile();
   const [showAboutDialog, setShowAboutDialog] = useState(false);
   const [showBenefitsDialog, setShowBenefitsDialog] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const navItems = [
     { title: "Home", href: "/" },
@@ -39,7 +42,7 @@ const Header = () => {
       {/* Top Banner */}
       <div className="bg-white py-4 border-b border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between relative">
             <Link to="/" className="flex items-center space-x-4 hover:opacity-90">
               <img 
                 src={indiaEmblem} 
@@ -64,9 +67,25 @@ const Header = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="bg-primary py-3">
+      <nav className="bg-primary py-3 relative">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center justify-center space-x-1 lg:space-x-6">
+          {isMobile ? (
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-primary-foreground p-2"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
+              </button>
+              <span className="text-primary-foreground font-medium">Menu</span>
+            </div>
+          ) : (
+            <div className="flex flex-wrap items-center justify-center space-x-1 lg:space-x-6">
+          
             {navItems.map((item, index) => (
               item.hasDropdown ? (
                 <DropdownMenu key={index}>
@@ -112,6 +131,60 @@ const Header = () => {
               )
             ))}
           </div>
+          )}
+          
+          {/* Mobile Menu */}
+          {isMobile && isMobileMenuOpen && (
+            <div className="absolute top-full left-0 right-0 bg-primary shadow-lg z-50 py-2">
+              {navItems.map((item, index) => (
+                <div key={index} className="px-4">
+                  {item.hasDropdown ? (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="flex items-center justify-between w-full py-3 text-primary-foreground">
+                        <span>{item.title}</span>
+                        <ChevronDown className="h-4 w-4" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-full">
+                        {item.subItems?.map((subItem, subIndex) => (
+                          <DropdownMenuItem key={subIndex} asChild>
+                            <Link 
+                              to={subItem.href}
+                              className="w-full"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {subItem.title}
+                            </Link>
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  ) : item.action ? (
+                    <button
+                      onClick={() => {
+                        item.action();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full text-left py-3 text-primary-foreground"
+                    >
+                      {item.title}
+                    </button>
+                  ) : (
+                    <Link
+                      to={item.href || "/"}
+                      className={`block py-3 ${
+                        location.pathname === item.href
+                          ? "text-primary-foreground/90 font-medium"
+                          : "text-primary-foreground"
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.title}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </nav>
 
