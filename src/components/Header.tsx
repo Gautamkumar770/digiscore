@@ -7,9 +7,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+import AboutDialog from "./AboutDialog";
+import BenefitsDialog from "./BenefitsDialog";
 
 const Header = () => {
   const location = useLocation();
+  const [showAboutDialog, setShowAboutDialog] = useState(false);
+  const [showBenefitsDialog, setShowBenefitsDialog] = useState(false);
   
   const navItems = [
     { title: "Home", href: "/" },
@@ -18,12 +23,12 @@ const Header = () => {
       hasDropdown: true,
       subItems: [
         { title: "Check Penalty History", href: "/penalty-history" },
-        { title: "Check DIGIScore Status", href: "/digiscore-status" },
+        { title: "Licence Renewal", href: "/licence-renewal" },
         { title: "Check DL Status", href: "/dl-status" },
       ]
     },
-    { title: "DIGIScore Core Benefits", href: "/benefits" },
-    { title: "What is DIGIScore?", href: "/about" },
+    { title: "DIGIScore Benefits", action: () => setShowBenefitsDialog(true) },
+    { title: "What is DIGIScore?", action: () => setShowAboutDialog(true) },
     { title: "Complaint", href: "/grievance" },
     { title: "DIGIScore Report", href: "/report" },
     { title: "Learn Rules", href: "/learn-rules" },
@@ -46,7 +51,7 @@ const Header = () => {
                   DIGIScore - Digital Demerit Points System
                 </h1>
                 <p className="text-lg text-black font-medium mt-1">
-                  Government of India
+                  One Nation, One System
                 </p>
               </div>
             </Link>
@@ -83,22 +88,42 @@ const Header = () => {
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <Link
-                  key={index}
-                  to={item.href || "/"}
-                  className={`px-3 py-2 text-sm font-medium rounded transition-colors ${
-                    location.pathname === item.href
-                      ? "bg-primary-foreground/20 text-primary-foreground"
-                      : "text-primary-foreground hover:bg-primary-foreground/10"
-                  }`}
-                >
-                  {item.title}
-                </Link>
+                item.action ? (
+                  <button
+                    key={index}
+                    onClick={item.action}
+                    className="px-3 py-2 text-sm font-medium rounded transition-colors text-primary-foreground hover:bg-primary-foreground/10"
+                  >
+                    {item.title}
+                  </button>
+                ) : (
+                  <Link
+                    key={index}
+                    to={item.href || "/"}
+                    className={`px-3 py-2 text-sm font-medium rounded transition-colors ${
+                      location.pathname === item.href
+                        ? "bg-primary-foreground/20 text-primary-foreground"
+                        : "text-primary-foreground hover:bg-primary-foreground/10"
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                )
               )
             ))}
           </div>
         </div>
       </nav>
+
+      {/* Dialogs */}
+      <AboutDialog 
+        isOpen={showAboutDialog} 
+        onClose={() => setShowAboutDialog(false)} 
+      />
+      <BenefitsDialog
+        isOpen={showBenefitsDialog}
+        onClose={() => setShowBenefitsDialog(false)}
+      />
     </header>
   );
 };

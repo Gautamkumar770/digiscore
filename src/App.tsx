@@ -7,8 +7,10 @@ import Index from "./pages/Index";
 import GrievanceSystem from "./pages/GrievanceSystem";
 import StatusDetails from "./pages/StatusDetails";
 import NotFound from "./pages/NotFound";
-import About from "./pages/About";
 import LearnRules from "./pages/LearnRules";
+import DLStatus from "./pages/DLStatus";
+import PenaltyHistory from "./pages/PenaltyHistory";
+import LicenceRenewal from "./pages/LicenceRenewal";
 
 const queryClient = new QueryClient();
 
@@ -22,8 +24,10 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/grievance" element={<GrievanceSystem />} />
           <Route path="/status-details" element={<StatusDetails />} />
-          <Route path="/about" element={<About />} />
           <Route path="/learn-rules" element={<LearnRules />} />
+          <Route path="/dl-status" element={<DLStatus />} />
+          <Route path="/penalty-history" element={<PenaltyHistory />} />
+          <Route path="/licence-renewal" element={<LicenceRenewal />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

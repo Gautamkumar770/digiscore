@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, AlertTriangle, Car, Shield, Info } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const rulesData = [
   {
@@ -20,7 +21,7 @@ const rulesData = [
     title: "Traffic Signals",
     description: "Follow traffic light signals and stop signs",
     points: -3,
-    fine: "₹1000-5000",
+    fine: "₹300-1000",
     guidelines: [
       "Red: Complete stop required",
       "Yellow: Prepare to stop",
@@ -97,87 +98,141 @@ const LearnRules = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900 flex flex-col">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-2 text-gray-900">Traffic Rules & Safety Education</h1>
-        <p className="text-gray-600 mb-6">
-          Learn about traffic rules, penalty system, and safe driving practices
-        </p>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+              Traffic Rules & Safety Education
+            </h1>
+            <p className="text-gray-600 text-lg">
+              Learn about traffic rules, penalty system, and safe driving practices
+            </p>
+          </div>
 
-        {/* Important Notice */}
-        <div className="bg-blue-50 rounded-lg p-4 mb-8 border border-blue-200">
-          <h2 className="text-blue-700 font-medium mb-2 flex items-center gap-2">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-            </svg>
-            Important Notice
-          </h2>
-          <p className="text-blue-800">
-            All traffic rules are enforced uniformly across India. Violation of any rule will result in demerit points being added to your licence. Accumulating 20 points may result in licence suspension.
-          </p>
-        </div>
-
-        {/* Rules Sections */}
-        <div className="space-y-6">
-          {currentRules.map((rule, index) => (
-            <div key={index} className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h2 className="text-xl font-semibold mb-1 text-gray-900">{rule.title}</h2>
-                  <p className="text-gray-500 text-sm">{rule.description}</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-red-500">{rule.points} points</span>
-                  <span className="text-amber-500">{rule.fine}</span>
-                </div>
+          {/* Important Notice */}
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 mb-8 border border-blue-200 shadow-sm">
+            <div className="flex items-start gap-4">
+              <div className="bg-blue-500 rounded-full p-2">
+                <AlertTriangle className="w-6 h-6 text-white" />
               </div>
-              <div className="mt-4">
-                <h3 className="text-gray-700 mb-2">Key Guidelines:</h3>
-                <ul className="space-y-2">
-                  {rule.guidelines.map((guideline, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-green-600">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      {guideline}
-                    </li>
-                  ))}
-                </ul>
+              <div>
+                <h2 className="text-blue-800 font-semibold text-lg mb-2 flex items-center gap-2">
+                  Important Notice
+                </h2>
+                <p className="text-blue-700 leading-relaxed">
+                  All traffic rules are enforced uniformly across India. Violation of any rule will result in demerit points being added to your licence. Accumulating 20 points may result in licence suspension.
+                </p>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Pagination */}
-        <div className="mt-8 flex justify-between items-center">
-          <button
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${
-              currentPage === 1
-                ? "border-gray-200 text-gray-400 cursor-not-allowed"
-                : "border-blue-500 text-blue-500 hover:bg-blue-50"
-            }`}
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Previous
-          </button>
-          <span className="text-gray-600">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${
-              currentPage === totalPages
-                ? "border-gray-200 text-gray-400 cursor-not-allowed"
-                : "border-blue-500 text-blue-500 hover:bg-blue-50"
-            }`}
-          >
-            Next
-            <ChevronRight className="w-4 h-4" />
-          </button>
+          {/* Quick Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm flex items-center gap-3">
+              <Car className="w-8 h-8 text-blue-500" />
+              <div>
+                <div className="text-sm text-gray-600">Total Rules</div>
+                <div className="text-2xl font-bold text-gray-900">{rulesData.length}</div>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm flex items-center gap-3">
+              <Shield className="w-8 h-8 text-red-500" />
+              <div>
+                <div className="text-sm text-gray-600">Max Points</div>
+                <div className="text-2xl font-bold text-gray-900">-20</div>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm flex items-center gap-3">
+              <Info className="w-8 h-8 text-amber-500" />
+              <div>
+                <div className="text-sm text-gray-600">Categories</div>
+                <div className="text-2xl font-bold text-gray-900">6</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Rules Sections */}
+          <div className="grid gap-6">
+            {currentRules.map((rule, index) => (
+              <div 
+                key={index} 
+                className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex-1">
+                    <h2 className="text-xl font-semibold mb-2 text-gray-900 flex items-center gap-2">
+                      {rule.title}
+                      <div className="flex items-center gap-2 text-sm">
+                        <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-medium">
+                          {rule.points} points
+                        </span>
+                        <span className="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">
+                          {rule.fine}
+                        </span>
+                      </div>
+                    </h2>
+                    <p className="text-gray-600">{rule.description}</p>
+                  </div>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                  <h3 className="text-gray-700 font-medium mb-3">Key Guidelines:</h3>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {rule.guidelines.map((guideline, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-gray-600 bg-white p-2 rounded border border-gray-100">
+                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+                          <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <span className="text-sm">{guideline}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="mt-8 flex justify-center items-center gap-4">
+            <button
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200",
+                currentPage === 1
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-white border border-blue-500 text-blue-500 hover:bg-blue-50"
+              )}
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Previous
+            </button>
+            <div className="flex items-center gap-2">
+              <span className="px-3 py-1 bg-blue-500 text-white rounded-lg">
+                {currentPage}
+              </span>
+              <span className="text-gray-500">of</span>
+              <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg">
+                {totalPages}
+              </span>
+            </div>
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200",
+                currentPage === totalPages
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-white border border-blue-500 text-blue-500 hover:bg-blue-50"
+              )}
+            >
+              Next
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </main>
       <Footer />
