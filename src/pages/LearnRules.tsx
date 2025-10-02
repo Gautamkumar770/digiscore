@@ -141,7 +141,7 @@ const LearnRules = () => {
               <Shield className="w-8 h-8 text-red-500" />
               <div>
                 <div className="text-sm text-gray-600">Max Points</div>
-                <div className="text-2xl font-bold text-gray-900">-20</div>
+                <div className="text-2xl font-bold text-gray-900">-16</div>
               </div>
             </div>
             <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm flex items-center gap-3">

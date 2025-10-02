@@ -13,8 +13,15 @@ const LoginPanel = () => {
   const [captchaInput, setCaptchaInput] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("");
+  const [role, setRole] = useState("");
   const { toast } = useToast();
+
+  const roles = [
+    { id: "rto-officer", label: "RTO Officer" },
+    { id: "field-officer", label: "Field Officer" },
+    { id: "system-auditor", label: "System Auditor" },
+    { id: "super-admin", label: "Super Admin" }
+  ];
 
   const generateCaptcha = () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -29,10 +36,10 @@ const LoginPanel = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!username || !password || !userType) {
+    if (!username || !password || !role) {
       toast({
         title: "Validation Error",
-        description: "Please fill in all required fields.",
+        description: "Please fill in all required fields including role selection.",
         variant: "destructive",
       });
       return;
@@ -49,19 +56,35 @@ const LoginPanel = () => {
 
     toast({
       title: "Login Successful",
-      description: `Welcome ${userType}! You have been logged in successfully.`,
+      description: `Welcome ${roles.find(r => r.id === role)?.label || role}! You have been logged in successfully.`,
     });
   };
 
   return (
     <Card className="w-full max-w-sm bg-[#fafafa] shadow-2xl border border-gray-200 rounded-xl">
-      <CardContent className="p-5">
-  <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+      <CardContent className="p-4">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-3">
           {/* Avatar */}
-          <div className="flex flex-col items-center mb-1">
-            <div className="rounded-full bg-gray-200 flex items-center justify-center w-20 h-20 mb-1">
-              <User className="h-12 w-12 text-gray-400" />
+          <div className="flex flex-col items-center">
+            <div className="rounded-full bg-gray-200 flex items-center justify-center w-16 h-16">
+              <User className="h-8 w-8 text-gray-400" />
             </div>
+          </div>
+
+          {/* Role Selection */}
+          <div className="w-full">
+            <Select value={role} onValueChange={setRole}>
+              <SelectTrigger className="border-0 border-b-2 border-gray-300 rounded-none focus:ring-0 focus:border-primary text-base py-1.5 px-0 bg-transparent">
+                <SelectValue placeholder="Please Select Your Role" />
+              </SelectTrigger>
+              <SelectContent>
+                {roles.map((roleOption) => (
+                  <SelectItem key={roleOption.id} value={roleOption.id}>
+                    {roleOption.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Username */}
@@ -73,7 +96,7 @@ const LoginPanel = () => {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter Username"
               required
-              className="border-0 border-b-2 border-gray-300 rounded-none focus:ring-0 focus:border-primary text-base py-2 px-0 bg-transparent"
+              className="border-0 border-b-2 border-gray-300 rounded-none focus:ring-0 focus:border-primary text-base py-1.5 px-0 bg-transparent"
             />
           </div>
 
@@ -87,28 +110,28 @@ const LoginPanel = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter Password"
                 required
-                className="border-0 border-b-2 border-gray-300 rounded-none focus:ring-0 focus:border-primary text-base py-2 px-0 bg-transparent"
+                className="border-0 border-b-2 border-gray-300 rounded-none focus:ring-0 focus:border-primary text-base py-1.5 px-0 bg-transparent"
               />
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="absolute right-0 top-0 h-full px-2 py-1 hover:bg-transparent"
+                className="absolute right-0 top-0 h-full px-1 py-1 hover:bg-transparent"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5" />
+                  <EyeOff className="h-4 w-4" />
                 ) : (
-                  <Eye className="h-5 w-5" />
+                  <Eye className="h-4 w-4" />
                 )}
               </Button>
             </div>
           </div>
 
           {/* CAPTCHA */}
-          <div className="w-full flex flex-col gap-2 items-center">
-            <div className="flex items-center gap-3 justify-center">
-              <div className="bg-black text-white font-mono text-base font-bold tracking-widest px-2 py-1 rounded shadow-inner border border-gray-300 flex items-center" style={{letterSpacing: '1px'}}>
+          <div className="w-full flex flex-col gap-1.5 items-center">
+            <div className="flex items-center gap-2 justify-center">
+              <div className="bg-black text-white font-mono text-sm font-bold tracking-widest px-2 py-0.5 rounded shadow-inner border border-gray-300 flex items-center" style={{letterSpacing: '1px'}}>
                 {captcha}
               </div>
               <Button
@@ -116,9 +139,9 @@ const LoginPanel = () => {
                 variant="ghost"
                 size="icon"
                 onClick={generateCaptcha}
-                className="text-yellow-500 hover:bg-transparent"
+                className="text-yellow-500 hover:bg-transparent p-0"
               >
-                <RefreshCw className="h-6 w-6" />
+                <RefreshCw className="h-4 w-4" />
               </Button>
             </div>
             <Input
@@ -129,18 +152,18 @@ const LoginPanel = () => {
               placeholder="Captcha"
               maxLength={5}
               required
-              className="border-0 border-b-2 border-gray-300 rounded-none focus:ring-0 focus:border-primary text-base py-2 px-0 bg-transparent text-center"
+              className="border-0 border-b-2 border-gray-300 rounded-none focus:ring-0 focus:border-primary text-sm py-1.5 px-0 bg-transparent text-center"
             />
           </div>
 
           <Button
             type="submit"
-            className="w-full bg-[#338af7] hover:bg-[#1976d2] text-white font-semibold py-1.5 text-sm rounded shadow-md mt-1"
+            className="w-full bg-[#338af7] hover:bg-[#1976d2] text-white font-semibold py-1.5 text-sm rounded shadow-md"
           >
             SUBMIT
           </Button>
         </form>
-  <div className="w-full flex justify-center mt-2">
+        <div className="w-full flex justify-center mt-1">
           <Button
             type="button"
             variant="link"

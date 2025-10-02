@@ -11,6 +11,7 @@ import LearnRules from "./pages/LearnRules";
 import DLStatus from "./pages/DLStatus";
 import PenaltyHistory from "./pages/PenaltyHistory";
 import LicenceRenewal from "./pages/LicenceRenewal";
+import TicketStatus from "./pages/TicketStatus";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/dl-status" element={<DLStatus />} />
           <Route path="/penalty-history" element={<PenaltyHistory />} />
           <Route path="/licence-renewal" element={<LicenceRenewal />} />
+          <Route path="/ticket-status" element={<TicketStatus />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

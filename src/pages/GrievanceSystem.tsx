@@ -4,18 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const GrievanceSystem = () => {
+  const navigate = useNavigate();
   // Add compact styles
-  const inputStyles = "h-9 text-sm";
   const labelStyles = "text-sm";
-  const [captcha, setCaptcha] = useState("8K2P9");
-  const [captchaInput, setCaptchaInput] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -29,16 +28,6 @@ const GrievanceSystem = () => {
     description: "",
   });
   const { toast } = useToast();
-
-  const generateCaptcha = () => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let result = "";
-    for (let i = 0; i < 5; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setCaptcha(result);
-    setCaptchaInput("");
-  };
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -75,15 +64,6 @@ const GrievanceSystem = () => {
       return;
     }
 
-    if (captchaInput !== captcha) {
-      toast({
-        title: "CAPTCHA Error",
-        description: "Please enter the correct CAPTCHA code.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     toast({
       title: "Grievance Submitted",
       description: "Your complaint has been submitted successfully. Ticket ID: GRV2025001234",
@@ -101,15 +81,11 @@ const GrievanceSystem = () => {
       penaltyIssue: "",
       description: "",
     });
-    setCaptchaInput("");
     setFile(null);
   };
 
   const handleTicketStatus = () => {
-    toast({
-      title: "Ticket Status",
-      description: "Please enter your ticket number to check the status.",
-    });
+    navigate('/ticket-status');
   };
 
   return (
@@ -254,65 +230,35 @@ const GrievanceSystem = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="document">Upload Supporting Document</Label>
-                    <div className="flex items-center space-x-2">
-                      <Input
-                        id="document"
-                        type="file"
-                        onChange={handleFileChange}
-                        accept=".jpg,.jpeg,.png,.pdf"
-                        className="hidden"
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => document.getElementById('document')?.click()}
-                        className="flex items-center space-x-2"
-                      >
-                        <Upload className="h-4 w-4" />
-                        <span>Choose File</span>
-                      </Button>
-                      {file && (
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <FileText className="h-4 w-4" />
-                          <span>{file.name}</span>
-                        </div>
-                      )}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Accept: JPG, JPEG, PNG, PDF (Max 5MB)
-                    </p>
-                  </div>
-
-                  {/* CAPTCHA */}
-                  <div className="space-y-2">
-                    <Label htmlFor="captcha">CAPTCHA *</Label>
-                    <div className="flex items-center space-x-2">
-                      <div className="bg-muted p-3 rounded border border-dashed border-border font-mono text-lg font-bold tracking-wider">
-                        {captcha}
-                      </div>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="icon"
-                        onClick={generateCaptcha}
-                        className="h-12 w-12"
-                      >
-                        <RefreshCw className="h-4 w-4" />
-                      </Button>
-                    </div>
+                <div className="space-y-2">
+                  <Label htmlFor="document">Upload Supporting Document</Label>
+                  <div className="flex items-center space-x-2">
                     <Input
-                      id="captcha"
-                      type="text"
-                      value={captchaInput}
-                      onChange={(e) => setCaptchaInput(e.target.value.toUpperCase())}
-                      placeholder="Enter CAPTCHA"
-                      maxLength={5}
-                      required
+                      id="document"
+                      type="file"
+                      onChange={handleFileChange}
+                      accept=".jpg,.jpeg,.png,.pdf"
+                      className="hidden"
                     />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => document.getElementById('document')?.click()}
+                      className="flex items-center space-x-2"
+                    >
+                      <Upload className="h-4 w-4" />
+                      <span>Choose File</span>
+                    </Button>
+                    {file && (
+                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                        <FileText className="h-4 w-4" />
+                        <span>{file.name}</span>
+                      </div>
+                    )}
                   </div>
+                  <p className="text-xs text-muted-foreground">
+                    Accept: JPG, JPEG, PNG, PDF (Max 5MB)
+                  </p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">

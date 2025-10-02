@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { RefreshCw, Upload, FileText } from "lucide-react";
+import { Upload } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -19,18 +19,6 @@ const LicenceRenewal = () => {
   });
   const [idProof, setIdProof] = useState<File | null>(null);
   const [addressProof, setAddressProof] = useState<File | null>(null);
-  const [captcha, setCaptcha] = useState("5A3B7");
-  const [captchaInput, setCaptchaInput] = useState("");
-
-  const generateCaptcha = () => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let result = "";
-    for (let i = 0; i < 5; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setCaptcha(result);
-    setCaptchaInput("");
-  };
 
   const handleFileChange = (type: 'id' | 'address', e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -66,14 +54,6 @@ const LicenceRenewal = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (captchaInput !== captcha) {
-      toast({
-        title: "Invalid CAPTCHA",
-        description: "Please enter the correct CAPTCHA code.",
-        variant: "destructive",
-      });
-      return;
-    }
 
     // Add form submission logic here
     toast({
@@ -217,32 +197,6 @@ const LicenceRenewal = () => {
                   </label>
                 </div>
               </div>
-            </div>
-
-            {/* CAPTCHA - More Compact */}
-            <div className="flex items-center gap-4 justify-center mt-2">
-              <div className="bg-black text-white font-mono text-sm font-bold tracking-widest px-2 py-1 rounded" style={{letterSpacing: '1px', minWidth: '80px'}}>
-                {captcha}
-              </div>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={generateCaptcha}
-                className="text-teal-500 hover:bg-transparent p-1"
-              >
-                <RefreshCw className="h-4 w-4" />
-              </Button>
-              <Input
-                id="captcha"
-                type="text"
-                value={captchaInput}
-                onChange={(e) => setCaptchaInput(e.target.value.toUpperCase())}
-                placeholder="Enter CAPTCHA"
-                maxLength={5}
-                required
-                className="text-center w-32 h-9"
-              />
             </div>
 
             {/* Submit Buttons */}

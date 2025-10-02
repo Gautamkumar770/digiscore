@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { RefreshCw } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import {
   Select,
   SelectContent,
@@ -11,7 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const indianStates = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
@@ -27,18 +25,6 @@ const DLStatus = () => {
   const [dlNumber, setDlNumber] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [state, setState] = useState("");
-  const [captcha, setCaptcha] = useState("ABC12");
-  const [captchaInput, setCaptchaInput] = useState("");
-
-  const generateCaptcha = () => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let newCaptcha = "";
-    for (let i = 0; i < 5; i++) {
-      newCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setCaptcha(newCaptcha);
-    setCaptchaInput("");
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,37 +93,6 @@ const DLStatus = () => {
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-
-            {/* CAPTCHA */}
-            <div className="flex flex-col items-center gap-1.5">
-              <div className="flex items-center gap-2 justify-center">
-                <div className="bg-black text-white font-mono text-sm font-bold tracking-widest px-2 py-1 rounded shadow-inner border border-gray-300 flex items-center" style={{letterSpacing: '1px', minWidth: '80px'}}>
-                  {captcha}
-                </div>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  onClick={generateCaptcha}
-                  className="text-teal-500 hover:bg-transparent"
-                >
-                  <RefreshCw className="h-5 w-5" />
-                </Button>
-              </div>
-              <label className="block text-xs font-medium text-gray-700 mt-1" htmlFor="captcha">
-                Enter CAPTCHA
-              </label>
-              <Input
-                id="captcha"
-                type="text"
-                value={captchaInput}
-                onChange={(e) => setCaptchaInput(e.target.value.toUpperCase())}
-                placeholder="Enter the code shown above"
-                maxLength={5}
-                required
-                className="border-0 border-b-2 border-gray-300 rounded-none focus:ring-0 focus:border-primary text-sm py-1.5 px-0 bg-transparent text-center"
-              />
             </div>
 
             {/* Submit Button */}
