@@ -124,7 +124,7 @@ const GrievanceSystem = () => {
                       id="penaltyNumber"
                       value={formData.penaltyNumber}
                       onChange={(e) => handleInputChange('penaltyNumber', e.target.value)}
-                      placeholder="Official Penalty reference number"
+                      placeholder="Penalty reference number"
                       required
                     />
                   </div>
@@ -135,7 +135,7 @@ const GrievanceSystem = () => {
                       id="vehicleDlNumber"
                       value={formData.vehicleDlNumber}
                       onChange={(e) => handleInputChange('vehicleDlNumber', e.target.value)}
-                      placeholder="Vehicle registration or driving license"
+                      placeholder="Vehicle/driving license number"
                       required
                     />
                   </div>
@@ -147,7 +147,7 @@ const GrievanceSystem = () => {
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      placeholder="For communication and ticket updates"
+                      placeholder="Enter You Email"
                       required
                     />
                   </div>
