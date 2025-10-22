@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200">
+  <g fill="none" fill-rule="evenodd">
+    <path fill="#002B5C" d="M96.5 0C149.7 0 193 43.3 193 96.5S149.7 193 96.5 193 0 149.7 0 96.5 43.3 0 96.5 0z"/>
+    <circle cx="96.5" cy="50" r="15" fill="#FF0000"/>
+    <circle cx="96.5" cy="96.5" r="15" fill="#FFA500"/>
+    <circle cx="96.5" cy="143" r="15" fill="#00FF00"/>
+    <path fill="#002B5C" d="M220 40h60v120h-60z"/>
+    <path fill="#FF4D4D" d="M300 40l90 120H210z"/>
+    <text x="400" y="130" font-family="Arial" font-size="72" fill="#002B5C">DIGISCORE</text>
+    <text x="400" y="170" font-family="Arial" font-size="24" fill="#002B5C">One Nation. One System</text>
+  </g>
+</svg>

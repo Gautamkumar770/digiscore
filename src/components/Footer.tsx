@@ -1,4 +1,6 @@
 
+import logo from '../assets/logo.svg';
+
 const Footer = () => {
   const footerLinks = [
     { title: "Terms of Use", href: "/terms" },
@@ -14,7 +16,16 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between w-full gap-y-1">
           {/* Left logo */}
           <div className="flex-1 flex justify-start items-center mb-2 md:mb-0">
-            <img src="/placeholder.svg" alt="e-challan logo" className="h-7 w-auto" />
+            <img 
+              src={logo}
+              alt="DIGIScore - One Nation. One System"
+              className="h-10 w-auto"
+              style={{
+                maxWidth: '250px',
+                objectFit: 'contain',
+                marginLeft: '8px'
+              }}
+            />
           </div>
           {/* Center content */}
           <div className="flex-1 flex flex-col items-center text-center">
